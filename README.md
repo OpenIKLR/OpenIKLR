@@ -1,13 +1,10 @@
 # Open-World LLM Logical Reasoning
 
-<p align="center">
-  <a href="https://github.com/OpenIKLR/OpenIKLR">
-    <img src="https://img.shields.io/badge/GitHub-Code-black?logo=github">
-  </a>
-  <a href="https://openreview.net/forum?id=hEcxsQkZpW&referrer=%5BAuthor%20Console%5D(%2Fgroup%3Fid%3DICML.cc%2F2026%2FConference%2FAuthors%23your-submissions)">
-    <img src="https://img.shields.io/badge/Paper-ICML%202026-red">
-  </a>
-</p>
+<div align="center">
+    <a href="https://github.com/OpenIKLR/OpenIKLR"><img src="https://img.shields.io/badge/GitHub-Code-black?logo=github"/></a>
+    <a href="https://openreview.net/forum?id=hEcxsQkZpW&referrer=%5BAuthor%20Console%5D(%2Fgroup%3Fid%3DICML.cc%2F2026%2FConference%2FAuthors%23your-submissions)"><img src="https://img.shields.io/badge/Paper-ICML%202026-red"/></a>
+</div>
+
 
 
 Codes and Data for ICML 2026 Paper:
