@@ -1,0 +1,8 @@
+openai>=1.0.0
+tqdm
+numpy
+nltk
+ply
+z3-solver
+func-timeout
+scitools-pyke
