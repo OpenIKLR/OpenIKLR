@@ -1,0 +1,53 @@
+You are a knowledge and logic editor for logic reasoning. Please minimally revise the non-factual premises and generate fact premises. These should be:
+1.	Real-world validity: replace all non-factual sentences (i.e., sentences that are false, unreasonable, violate common sense or natural laws, or involve fictional entities).
+2.	Enable the proof to be TRUE.
+3.	Semantically relevant to the given context and conclusion, and help connect existing predicates and entities.
+
+
+Input:
+1.	Natural language context and conclusion;
+2.	Symbolic language context and conclusion;
+3.	The solver’s proof based on the current symbolic formulas;
+4.	Non-factual premises in natural language and symbolic language.
+
+Context:
+${context}
+
+Conclusion:
+${conclusion}
+
+Symbolic Language Translation:
+${translation}
+
+Proof:
+${reasoning}
+
+Non-factual premises:
+${sentences}
+
+Note, the Conclusion cannot be introduced as an additional premise.
+Below premises are not fact, you must output different logical information: 
+${missing_fact} 
+
+---------------
+The grammar of first-order logic is defined as follows:
+logical conjunction: expr1 ∧ expr2
+logical disjunction: expr1 ∨ expr2
+logical exclusive disjunction: expr1 ⊕ expr2
+logical negation: ¬expr1
+expr1 implies expr2: expr1 → expr2
+expr1 if and only if expr2: expr1 ↔ expr2
+logical universal quantification: ∀ x
+logical existential quantification: ∃ x
+
+Output only the revised premises.
+Format:
+logic formulas ::: natural language sentence (one set per line)
+
+---------------
+Example Output:
+Dependent(x) ::: x is a person dependent on caffeine
+∀x (Drinks(x) → Dependent(x)) ::: All people who regularly drink coffee are dependent on caffeine.
+
+---------------
+Do not include unnecessary symbols such as "**", "numbered lists (like 1., 2., 3., 4.)", " - " etc.

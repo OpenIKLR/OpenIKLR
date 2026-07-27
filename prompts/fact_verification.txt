@@ -1,0 +1,24 @@
+Your task is to determine whether each of the given sentences describes facts that are likely true in the real world.
+
+A sentence is considered TRUE if:
+- It describes a fact, tendency, or relationship that is generally accepted as plausible or commonly observed in the real world.
+- It reflects everyday knowledge, typical human experience, or widely held beliefs, even if the statement allows for exceptions or is not precisely verifiable.
+- It expresses a reasonable causal, functional, or semantic relationship that aligns with how things usually work in real-world contexts.
+- For logical inference statements, the connection between antecedent and consequent should be intuitively grounded in real-world understanding, not purely arbitrary.
+
+A sentence is considered NOT TRUE if:
+- It involves clearly fictional, impossible, or nonexistent entities.
+- It directly contradicts well-established real-world facts.
+- It makes a strong universal claim that is clearly false in general.
+- It asserts a specific factual claim that is highly implausible or unsupported by common real-world knowledge.
+
+Input premises are a list of sentences. Each sentence should be evaluated independently.
+
+Premises:
+${premise}
+
+Output Format:
+True/False (one premise per line)
+
+Return **only** True/False.
+Do not include unnecessary symbols such as "**", "numbered lists (like 1., 2., 3., 4.)", " - " etc.

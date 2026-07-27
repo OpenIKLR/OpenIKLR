@@ -1,0 +1,19 @@
+Given a problem statement as contexts, the task is to answer a logical reasoning question.  
+Context:
+${context}
+Question:
+${question}
+Options:
+A) True  
+B) False  
+
+---------------
+Example output:
+Reasoning:
+(... output step by step here ...)
+
+Conclusion:
+B)
+
+---------------
+Return **only** Reasoning and Conclusion.

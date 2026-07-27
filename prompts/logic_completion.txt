@@ -1,0 +1,74 @@
+This task is to minimally complete the missing logic information so that the solver can successfully infer the conclusion as TRUE. The current logic formulas is incomplete to support a successful proof (e.g., the solver returns “unknown” or “false”).
+
+Please generate as few additional logic information as possible (at least 1 and at most 4). Each set should contain:
+•	one natural language sentence, and its corresponding first-order logic formula.
+These should:
+1.	Express real-world or commonsense knowledge;
+2.	Be semantically relevant to the given context and conclusion, and help connect existing predicates and entities;
+3.	Be useful for enabling the solver to infer TRUE and complete the proof.
+4.  Not directly restate the conclusion, provide an equivalent paraphrase of the conclusion, or add the conclusion formula itself as a premise.
+
+Input:
+1.	Natural language context and conclusion;
+2.	Symbolic language context and conclusion;
+3.	The solver’s proof based on the current symbolic formulas.
+
+Context:
+${context}
+
+Conclusion:
+${conclusion}
+
+Symbolic Language Translation:
+${translation}
+
+Proof:
+${prior_reasoning}
+
+Note: The symbolic formula below is known to be incorrect. You must output different logical information.
+Do not use the conclusion or any logically equivalent statement as a replacement for the incorrect formula. 
+${failed_formula}
+${failed_reasoning}
+
+---------------
+The grammar of first-order logic is defined as follows:
+logical conjunction: expr1 ∧ expr2
+logical disjunction: expr1 ∨ expr2
+logical exclusive disjunction: expr1 ⊕ expr2
+logical negation: ¬expr1
+expr1 implies expr2: expr1 → expr2
+expr1 if and only if expr2: expr1 ↔ expr2
+logical universal quantification: ∀ x
+logical existential quantification: ∃ x
+
+---------------
+Output format:
+logic formula ::: natural language sentence (one set per line)
+
+---------------
+Example:
+Context: 
+Some show airing at 8 pm on Monday gives out roses on TV.\nIf a show gives out roses on TV, then the show is an episode of The Bachelor.\nAll shows portraying the lives of real people are reality TV shows.\nBreaking Bad is a show.\nBreaking Bad is not a reality TV show.
+
+Conclusion:
+If roses are given out during Breaking Bad, then it is on Monday at 8 pm.
+
+Symbolic Language Translation:
+Predicates:\nShow(x) ::: x is a show.\nAiring(x, day, time) ::: x airs on day at time.\nGivesOutRoses(x) ::: x gives out roses on TV.\nEpisodeOf(x, y) ::: x is an episode of y.\nPortrayingRealLives(x) ::: x portrays the lives of real people.\nRealityTV(x) ::: x is a reality TV show.\nPremises:\n∃x (Show(x) ∧ Airing(x, monday, eightPM) ∧ GivesOutRoses(x)) ::: Some show airing at 8 pm on Monday gives out roses on TV.\n∀x (GivesOutRoses(x) → EpisodeOf(x, theBachelor)) ::: If a show gives out roses on TV, then the show is an episode of The Bachelor.\n∀x (PortrayingRealLives(x) → RealityTV(x)) ::: All shows portraying the lives of real people are reality TV shows.\nShow(breakingBad) ::: Breaking Bad is a show.\n¬RealityTV(breakingBad) ::: Breaking Bad is not a reality TV show.\nConclusion:\nGivesOutRoses(breakingBad) → Airing(breakingBad, monday, eightPM) ::: If roses are given out during Breaking Bad, then it is on Monday at 8 pm.
+
+Proof:
+trying to prove original conclusion:\n1 (exists x (Show(x) & Airing(x,Monday,EightPM) & GivesOutRoses(x))) # label(non_clause). [assumption].\n2 (all x (GivesOutRoses(x) -> EpisodeOf(x,TheBachelor))) # label(non_clause). [assumption].\n3 (all x (PortrayingRealLives(x) -> RealityTV(x))) # label(non_clause). [assumption].\n4 GivesOutRoses(BreakingBad) -> Airing(BreakingBad,Monday,EightPM) # label(non_clause) # label(goal). [goal].\n5 Show(c1). [clausify(1)].\n6 Airing(c1,Monday,EightPM). [clausify(1)].\n7 GivesOutRoses(c1). [clausify(1)].\n8 -GivesOutRoses(x) | EpisodeOf(x,TheBachelor). [clausify(2)].\n9 -PortrayingRealLives(x) | RealityTV(x). [clausify(3)].\n10 Show(BreakingBad). [assumption].\n11 -RealityTV(BreakingBad). [assumption].\n12 GivesOutRoses(BreakingBad). [deny(4)].\n13 -Airing(BreakingBad,Monday,EightPM). [deny(4)].\n14 Derived: EpisodeOf(c1,TheBachelor). [resolve(8,a,7,a)].\n15 Derived: EpisodeOf(BreakingBad,TheBachelor). [resolve(12,a,8,a)].\n-- Search terminated, no contradiction found --\n\ntrying to prove negation of original conclusion:\n1 (exists x (Show(x) & Airing(x,Monday,EightPM) & GivesOutRoses(x))) # label(non_clause). [assumption].\n2 (all x (GivesOutRoses(x) -> EpisodeOf(x,TheBachelor))) # label(non_clause). [assumption].\n3 (all x (PortrayingRealLives(x) -> RealityTV(x))) # label(non_clause). [assumption].\n4 -(GivesOutRoses(BreakingBad) -> Airing(BreakingBad,Monday,EightPM)) # label(non_clause) # label(goal). [goal].\n5 Show(c1). [clausify(1)].\n6 Airing(c1,Monday,EightPM). [clausify(1)].\n7 GivesOutRoses(c1). [clausify(1)].\n8 -GivesOutRoses(x) | EpisodeOf(x,TheBachelor). [clausify(2)].\n9 -PortrayingRealLives(x) | RealityTV(x). [clausify(3)].\n10 Show(BreakingBad). [assumption].\n11 -RealityTV(BreakingBad). [assumption].\n12 -GivesOutRoses(BreakingBad) | Airing(BreakingBad,Monday,EightPM). [deny(4)].\n13 Derived: EpisodeOf(c1,TheBachelor). [resolve(8,a,7,a)].\n-- Search terminated, no contradiction found --\n\nSo: Unknown
+
+Note: The symbolic formula below is known to be incorrect. 
+You must output different logical information.
+∀x (EpisodeOf(x, theBachelor) → PortrayingRealLives(x)) ::: All episodes of The Bachelor portray the lives of real people.
+∀x (EpisodeOf(x, theBachelor) → RealityTV(x)) ::: All episodes of The Bachelor are reality TV shows.
+∀x (RealityTV(x) → ¬(x = breakingBad)) ∨ ∀x (EpisodeOf(x, theBachelor) → Airing(x, monday, eightPM)) ::: Either no reality TV show is Breaking Bad, or all episodes of The Bachelor air on Monday at 8 pm.
+Proof has syntax error
+
+Example Output:
+∀x (EpisodeOf(x, theBachelor) → PortrayingRealLives(x)) ::: All episodes of The Bachelor portray the lives of real people.
+∀x (EpisodeOf(x, theBachelor) → Airing(x, monday, eightPM)) ::: All episodes of The Bachelor air on Monday at 8 pm.
+
+---------------
+Do not include unnecessary symbols such as "**", "numbered lists (like 1., 2., 3., 4.)", " - " etc.
